@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "obelisk"
+version = "0.1.0"
+description = "A toolkit and interface to transform reflectance files"
+license = "Apache 2.0"
+authors = ["Abraham Hmiel <abehmiel@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/abehmiel/obelisk"
+packages = [
+    { include = "obelisk" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+pandas = "^1.2.4"
+flask = "2.0.1"
+dephell = "^0.8.0"
+pytest = ">=5.0,<6.0"  
+pytest-cov = "^2.12.1"
+pytest-pycodestyle = "^2.2.0"
+Flask-WTF = "^0.15.1"
+Flask-Bootstrap4 = "^4.0.2"
+
+[tool.dephell.main]
+from {format = "poetry", path = "pyproject.toml"}
+to = {format = "setuppy", path = "setup.py"}
+
+[build-system]
+requires = ["poetry-core>=1.1.7"]
+build-backend = "poetry.core.masonry.api"
