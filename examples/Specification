@@ -1,0 +1,88 @@
+Design Elelments and Deliverable for the Monochromatic Hybric Diffuse Reflectance datafile conversion
+
+1.	Input data format:		DateTimecoded filename (text, .tsv) The user does have to power to change this.
+	
+2.	The structure of the INPUT DATA FILE (IDF) file is
+		4 lines of header (TRIAL NAME; TRIAL NAME; TRIAL DATE; GRID TYPE)
+		Followed by the Top Row of the data stream which is:
+	Subject ID	Site ID	Site Label	Site Type	Subsite	Attenuation	PMT HV(Volts)	Scan Time	Completed	Filter Index	290 nm 292 nm ... 400 nm	
+			
+		Followed by the data stream for each subset.
+	***	It is each of the 'subset data streams', with only the wavelengths and the spectral data that are to be split off into new, separate files.
+	
+3.	The objective is to create a set of files, consisting of 55 rows of 
+			Wavelength (format example: 2.900000E+2) Value (format example: 7.212429E-9)
+	which would be represented in the ODF as:
+			2.900000E+2 7.212429E-9							(Aside: Personally, I find it curious that the Wavelengths aren't integers)
+			2.920000E+2 8.982282E-9								as it is nearly set in stone that the values will be EITHER 
+			2.940000E+2 1.228600E-8								290, 292, 294, 296 .... 400    OR
+		and so on up to:										290, 291, 292, 293 .... 400 this choice is possible but takes 2x longer 
+			4.000000E+2 4.541728E-6															to collect each data scan.
+	
+4.	There will be n {wavelength, value) Output Data Files (ODF) where n is the product of
+			subj - the number of subjects;
+	times	2	 - one 'unprotected' & one 'protected;
+	times   site - the number of sites (the types of product under test)
+	times   rep  - Replicates (alternatively, sub-sites; min 3, typ. 5, max. 9)
+	
+5.	The filenames of the ODF will conform to:
+		
+		XXXXPAA_R
+		
+		XXXX = numbers for the Subject ID
+		P 		P = 0 for Unprotected P = 1 for Protected
+		product identifier - text characters AA, AB, AC…..
+		_  is underscore separator
+		R, last digit is Replicate 1,2,3,or 4 (typ. 5, Max 9) 
+
+
+6.	Example: Five Subjects with four sites and four replicates = 160 output spectra files
+	would be generated as:
+00010AA_1	00010AC_1	00020AA_1	00020AC_1	00030AA_1	00030AC_1	00040AA_1	00040AC_1	00050AA_1	00050AC_1
+00010AA_2	00010AC_2	00020AA_2	00020AC_2	00030AA_2	00030AC_2	00040AA_2	00040AC_2	00050AA_2	00050AC_2
+00010AA_3	00010AC_3	00020AA_3	00020AC_3	00030AA_3	00030AC_3	00040AA_3	00040AC_3	00050AA_3	00050AC_3
+00010AA_4	00010AC_4	00020AA_4	00020AC_4	00030AA_4	00030AC_4	00040AA_4	00040AC_4	00050AA_4	00050AC_4
+00011AA_1	00011AC_1	00021AA_1	00021AC_1	00031AA_1	00031AC_1	00041AA_1	00041AC_1	00051AA_1	00051AC_1
+00011AA_2	00011AC_2	00021AA_2	00021AC_2	00031AA_2	00031AC_2	00041AA_2	00041AC_2	00051AA_2	00051AC_2
+00011AA_3	00011AC_3	00021AA_3	00021AC_3	00031AA_3	00031AC_3	00041AA_3	00041AC_3	00051AA_3	00051AC_3
+00011AA_4	00011AC_4	00021AA_4	00021AC_4	00031AA_4	00031AC_4	00041AA_4	00041AC_4	00051AA_4	00051AC_4
+00010AB_1	00010AD_1	00020AB_1	00020AD_1	00030AB_1	00030AD_1	00040AB_1	00040AD_1	00050AB_1	00050AD_1
+00010AB_2	00010AD_2	00020AB_2	00020AD_2	00030AB_2	00030AD_2	00040AB_2	00040AD_2	00050AB_2	00050AD_2
+00010AB_3	00010AD_3	00020AB_3	00020AD_3	00030AB_3	00030AD_3	00040AB_3	00040AD_3	00050AB_3	00050AD_3
+00010AB_4	00010AD_4	00020AB_4	00020AD_4	00030AB_4	00030AD_4	00040AB_4	00040AD_4	00050AB_4	00050AD_4
+00011AB_1	00011AD_1	00021AB_1	00021AD_1	00031AB_1	00031AD_1	00041AB_1	00041AD_1	00051AB_1	00051AD_1
+00011AB_2	00011AD_2	00021AB_2	00021AD_2	00031AB_2	00031AD_2	00041AB_2	00041AD_2	00051AB_2	00051AD_2
+00011AB_3	00011AD_3	00021AB_3	00021AD_3	00031AB_3	00031AD_3	00041AB_3	00041AD_3	00051AB_3	00051AD_3
+00011AB_4	00011AD_4	00021AB_4	00021AD_4	00031AB_4	00031AD_4	00041AB_4	00041AD_4	00051AB_4	00051AD_4
+
+
+
+7.	(Aside: the column titles would have been better specified without spaces and more concise to fit the top data row better so that:
+
+	Subject ID	Site ID	Site Label	Site Type	Subsite	Attenuation	PMT HV(Volts)	Scan Time	Completed	Filter Index	290 nm 292 nm
+Christopher	Site  1	P5_1	Unprotected	SS 01	NaN	410.00	3:18:05.747 PM 8/5/2021	TRUE	4
+			
+[with alignment becomes)
+			
+	SubjID  SiteID	 SiteLabel	SiteType	Subsite Attenuation	PMTHV(Volts)	ScanTime			Completed	FilterIndex	290 nm 292 nm ....
+Christopher	Site  1		P5_1	Unprotected	SS 01	NaN			410.00			3:18:05.747 PM 8/5/2021	TRUE	4				Value1 Value1 ....	
+	
+	
+	
+8.	It appears to be necessary to state in the header 
+			* the explicit set of Site ID 4 digit numbers; the set needs a way to be asserted in the LabVIEW code GUI.
+		
+		and useful to state in the header
+			* the number of subjects, this value is asserted in the LabVIEW code GUI, but could be determined by an examination of the IDF.
+			* the number of replicates; this value needs a way to be asserted in the LabVIEW code GUI and passed to the IDF.
+			* we expect that there would be R replicates in every SUBJ; P; SITE; combination.
+
+
+	-------------------------------------------------------------------------------------
+	
+9.	The deliverable is a means of 
+		setting the MHDRS datafile location;
+		setting the output path for the spectral datafiles;
+		and the generation of the spectra files from the data in the MPDRS file.
+		
+		

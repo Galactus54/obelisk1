@@ -14,9 +14,13 @@ install:
 build:
 	docker build -t ${IMG}:${IMG_TAG} .
 
-.PHONY: server
-server:
+.PHONY: image-server
+image-server:
 	docker run -it -e PORT=${PORT} ${IMG}:${IMG_TAG}
+
+.PHONY: local-server
+local-server:
+	poetry run python -m flask 
 
 .PHONY: test
 test:
