@@ -1,26 +1,39 @@
 # obelisk
 
-A lightwight service for data transformations and interfacing
+A lightwight command line application for data transformations and interfacing
 for reflectance calculations
 
 ## Installation
-
-### Docker
-
-Obelisk requires docker. The easiest way to put docker on your 
-system is through docker desktop, which requires administrator
-privileges. You can find installation instructions for
-docker [here](https://docs.docker.com/desktop/windows/install/)
 
 ### Obelisk
 
 Clone or download a `.zip` of the repository via github and
 navigate to the repository directory.
 
+### Poetry
+
+[Install Poetry by following the directions here](https://python-poetry.org/docs/#installation)
+
+### Install Dependencies
+
+From the main `poetry` directory, issue the following on the command line:
+
+`poetry install`
+
 ## Usage
 
-- Build the Obelisk docker image
+Obelisk is a command-line application. Here is a list of command line arguments:
 
-- Run the Obelisk docker image
+`-c --convert`: convert file. (Currently the only mode of operation)
 
-- Navigate to `127.0.0.1:8000`
+`-i --input-file`: an input file for conversion. Will prompt the user for input if not given.
+
+`-d --destination`: a destination filepath for converted files. Will prompt the user for input if not given.
+
+Since obelisk runs on poetry, it requires a `poetry run` command with command line arguments. For an example usage for conversion:
+
+`poetry run python -m obelisk -c -i='examples/input/p5Sample_MHDRS.tsv' -d='examples/output'`
+
+If relative filepaths are not working on your system, try absolute filepaths.
+
+Additionally, a batchfile and Makefile command is available which will run in interactive mode, prompting the user for input and output filepath information. To use these, either run the batch file or (on UNIX systems equipped with the Make utility), `make convert`

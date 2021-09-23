@@ -12,14 +12,12 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
+click = "^8.0.1"
 pandas = "^1.2.4"
-flask = "2.0.1"
 dephell = "^0.8.0"
 pytest = ">=5.0,<6.0"  
 pytest-cov = "^2.12.1"
 pytest-pycodestyle = "^2.2.0"
-Flask-WTF = "^0.15.1"
-Flask-Bootstrap4 = "^4.0.2"
 
 [tool.dephell.main]
 from {format = "poetry", path = "pyproject.toml"}
