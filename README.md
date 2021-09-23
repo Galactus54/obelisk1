@@ -32,7 +32,7 @@ Obelisk is a command-line application. Here is a list of command line arguments:
 
 Since obelisk runs on poetry, it requires a `poetry run` command with command line arguments. For an example usage for conversion:
 
-`poetry run python -m obelisk -c -i='examples/input/p5Sample_MHDRS.tsv' -d='examples/output'`
+`poetry run python -m obelisk -c -i 'examples/input/p5Sample_MHDRS.tsv' -d 'examples/output/test'`
 
 If relative filepaths are not working on your system, try absolute filepaths.
 
