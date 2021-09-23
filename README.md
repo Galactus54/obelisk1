@@ -22,7 +22,7 @@ From the main `poetry` directory, issue the following on the command line:
 
 ## Usage
 
-Obelisk is a command-line application. Here is a list of command line arguments:
+Obelisk is a command-line application. You will usually want to navigate to the top-level obelisk directory (where this README is) in oder to use it. Here is a list of command line arguments:
 
 `-c --convert`: convert file. (Currently the only mode of operation)
 
